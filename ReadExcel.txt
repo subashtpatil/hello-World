@@ -1,0 +1,42 @@
+package com.test.Utility;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+public class ReadXcel {
+		
+			public static ArrayList<Object[]> getDataFromExcel() throws EncryptedDocumentException, IOException
+			{
+			// TODO Auto-generated method stub
+			ArrayList<Object[]> al= new ArrayList<Object[]>();
+			InputStream fis= new FileInputStream("E:\\MyWorkspace_Completed\\FirstTestNGProject\\src\\com\\testdata\\HalfEbayTestData.xlsx");
+						
+			Workbook wb= WorkbookFactory.create(fis);
+			Sheet sh= wb.getSheet("RegTestData");
+			Row firstrow= sh.getRow(0);
+			int rowcount= sh.getPhysicalNumberOfRows();
+			for (int i=0; i<rowcount; i++) {
+				for(int j=0;j< firstrow.getLastCellNum(); j++) {
+					//Cell cl=sh.getRow(i).getCell(j);
+					Cell cl=sh.getRow(i).getCell(j);				
+					
+					//System.out.println(cl);
+					Object[] ob= {cl};
+										
+					al.add(ob);						
+				    }					
+			    }
+			System.out.println("My data displayed as    "+al);
+			return al;
+}	
+}
